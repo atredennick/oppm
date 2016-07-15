@@ -49,6 +49,21 @@ We find...
 \emph{Key words: population model, climate change, forecasting, integral projection model, ridge regression, functional linear model, model selection}
 \end{abstract}
 
+Plan of Work
+------------
+### Research Question
+What is the best way to link demography to climate drivers when prediction is the goal: data-driven approaches or expert knowledge? (*This is a placeholder, and a crappy one at that.*)
+
+### Research Approach
+1. Fit vital rate statistical models
+  + Functional linear models (Britta and Andrew) -- `mgcv` 
+  + Ridge regression on *a priori* climate covariates (Andrew) -- `Stan` (has to be Bayesian, no packages for frequentist GLMM with mixture of penalized and non-penalized coefficients)
+  + Ridge regression on climate covariates aggregated according to FLM results (Andrew and Britta) -- `Stan`. This will also require coming up with an algorithm to identify months over which to aggregate (and, do we sum, average??).
+
+2. Build IPMs for each statistical approach above (Andrew and Peter)
+  + Leave-one-year-out validation
+  + Compare validation scores among three approaches
+
 \newpage{}
 
 Figures
