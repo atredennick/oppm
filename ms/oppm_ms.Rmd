@@ -1,0 +1,60 @@
+---
+layout: 12pt
+header-includes:
+   - \usepackage{lineno}
+   - \linenumbers
+   - \usepackage{setspace}
+   - \doublespacing
+   - \usepackage[document]{ragged2e}
+   - \usepackage{color, soul}
+   - \usepackage{graphicx}
+bibliography: ~/Dropbox/Bibliography/SageAbundance.bib
+csl: components/ecology.csl
+
+## rmarkdown render options
+output:
+  pdf_document:
+    fig_caption: true
+    keep_tex: false
+fontsize: 12pt
+geometry: margin=1in
+linkcolor: black
+urlcolor: black
+---
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{centering}
+\textbf{\large{A framework for optimally predictive population models: identifying climate drivers for integral projection models}}
+
+\textsc{\small{Andrew T. Tredennick\footnote{Corresponding author: atredenn@gmail.com}\textsuperscript{1}, Brittany J. Teller\textsuperscript{1}, ..., and Peter B. Adler\textsuperscript{1}}}
+
+\textit{\small{\textsuperscript{1}Department of Wildland Resources and the Ecology Center, 5230 Old Main Hill, Utah State University, Logan, Utah 84322 USA}} \\
+
+\end{centering}
+
+\renewcommand*{\thefootnote}{\arabic{footnote}}
+\setcounter{footnote}{0}
+
+\begin{abstract}
+Linking variation in weather to population dynamics is an integral step toward predicting the impactes of climate change on plant and animal populations.
+However, fitting demographic population models with climate drivers is deceptively complex.
+Just deciding how to, and whether to, aggregate weather variables into a set of candidate covariates is non-trivial.
+Here, we describe and compare three possible methods for including climate covariates: (1) use expert knowledge to \emph{a priori} define a tractable set of climate covariates, (2) use functional linear models (splines) to avoid aggregation altogether, and (3) use functional linear models to identify time periods over which to aggregate climate variables followed by statistical regularization to manage covariate collinearity.
+To test the three methods we build stochastic integral projection models using the all three methods for climate covariate inclusion for 15 species across five semi-arid grasslands and compare their predictive ability.
+We find...
+
+\vspace{2em}
+
+\emph{Key words: population model, climate change, forecasting, integral projection model, ridge regression, functional linear model, model selection}
+\end{abstract}
+
+\newpage{}
+
+Figures
+-------
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[height=6in]{../figures/OPPM_workflow.png}
+  \caption{Flowchart diagram of the steps in our analysis.}
+\end{figure}
