@@ -1,0 +1,123 @@
+6/6/2016
+
+Q26 ID 73 1946 removed from survival and 1945 for growth
+Appears to be a "died by high W and replaced by seedling" case
+
+
+I also agree, and I'll go about it first thing Friday morning and commit the files to the repo. I will also note what we've done in a readme, and save an archived copy of the original just in case we need it for some reason.
+
+
+B
+
+Brittany J. Teller
+Brittany.J.Teller@gmail.com
+217-502-2695
+
+On Thu, Dec 17, 2015 at 2:01 PM, Peter Adler <peter.adler@usu.edu> wrote:
+I agree. Hunting for large decreases in size + increases in W seems to be the way to catch these.
+
+
+On 12/17/2015 10:54 AM, Stephen Paul Ellner wrote:
+OK, so what I think we need to do is
+ 
+(1) Remove the last line for each of these individuals from the survival data set. For example, we remove the observation that
+Q22_56 was size 2.502636 in 1935, and then died. This line is not in the growth data set.
+ 
+(2) Remove the next-to-last line from the growth data set (e.g., the one where Q22_56 goes from 5.767532 in 1935 to 2.502636 in 1936.
+ 
+For the moment, I am just re-fitting the ARTR competition kernel with these removed, to see if that changes anything. If we're in agreement about what needs to be done, we should quickly try to identify all such cases and remove them from the data files in the driversData repos.
+ 
+Steve
+ 
+Stephen P. Ellner
+Department of Ecology & Evolutionary Biology, E339 Corson Hall
+Cornell University, Ithaca NY 14853-2701
+Phone (607) 254-4221 FAX (607) 255-8088
+* This is my work email. I try not to read it at other times *
+ 
+ 
+From: Peter Adler [mailto:peter.adler@usu.edu] 
+Sent: Thursday, December 17, 2015 12:23 PM
+To: Stephen Paul Ellner; Brittany Teller
+Subject: Re: high W's
+ 
+In all three cases, plants that were separate are merged on the map. Normally when two plants merge, one of them "dies" completely, so it would never show up in the growth model and it would be flagged as right censored for the survival model. But in these cases, it is a multiple polygon plant that gets merged--the big polygon(s) get merged but one polygon is left alone and "survives". I don't see an easy way to fix this except for editing the GIS files by hand, so we should just drop these from the analysis.
+
+On 12/16/2015 2:24 PM, Stephen Paul Ellner wrote:
+Here are the goofy ones in ARTR. The columns are year, logarea, and W.
+ 
+Apart from these individuals, the highest value of W for any plant at any time is 1.706791.
+ 
+Steve
+ 
+[1] "Q22_56"
+     [,1]     [,2]       [,3]
+[1,]   30 5.298364  0.5560590
+[2,]   31 5.401212  0.3437595
+[3,]   32 5.508024  0.2619899
+[4,]   33 5.830734  0.6117960
+[5,]   34 5.767532  0.5207961
+[6,]   35 2.502636 55.6883296
+ 
+[1] "Q22_60"
+      [,1]     [,2]       [,3]
+[1,]   30 5.222512  0.3617900
+[2,]   31 4.316646  0.1540287
+[3,]   32 4.799979  0.2371968
+[4,]   33 4.878482  0.3436171
+[5,]   36 4.644309  0.1464620
+[6,]   37 5.064374  0.3877168
+[7,]   38 4.977953  0.4446957
+[8,]   39 5.257175  0.2994174
+[9,]   40 5.468999  0.4347926
+[10,]   41 5.499337  0.3882201
+[11,]   45 5.672449  0.9291430
+[12,]   46 1.808883 48.3369829
+ 
+[1] "Q7_104"
+     [,1]     [,2]        [,3]
+[1,]   29 2.688662  0.01112931
+[2,]   30 3.207060  0.02466421
+[3,]   31 4.259808  0.02932858
+[4,]   32 4.276600  0.11334377
+[5,]   33 5.467694  0.17840893
+[6,]   34 5.337601  0.28380729
+[7,]   35 5.462838  0.61187443
+[8,]   36 1.213541 45.06654725
+ 
+Stephen P. Ellner
+Department of Ecology & Evolutionary Biology, E339 Corson Hall
+Cornell University, Ithaca NY 14853-2701
+Phone (607) 254-4221 FAX (607) 255-8088
+* This is my work email. I try not to read it at other times *
+ 
+ 
+From: Brittany Teller [mailto:brittany.j.teller@gmail.com] 
+Sent: Wednesday, December 16, 2015 12:16 PM
+To: Stephen Paul Ellner; Peter Adler
+Subject: high W's
+ 
+Hey Steve,
+ 
+I just talked with Peter and he thought that some of those "high W" instances might be glitches in the way trackID is assigned. Peter asked that you send him the IDs of those problematic individuals so he can check it out.
+ 
+B
+ 
+ 
+
+Brittany J. Teller
+Brittany.J.Teller@gmail.com
+217-502-2695
+
+
+-- 
+Peter Adler
+Dept. Wildland Resources and the Ecology Center
+Utah State University
+https://qcnr.usu.edu/labs/adler_lab/index
+
+-- 
+Peter Adler
+Dept. Wildland Resources and the Ecology Center
+Utah State University
+https://qcnr.usu.edu/labs/adler_lab/index
