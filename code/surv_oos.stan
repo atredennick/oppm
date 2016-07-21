@@ -46,8 +46,7 @@ transformed parameters{
   
   // Determinstic model
   for(i in 1:n){
-    mu[i] <- a[yid[i]] + gint[gid[i]] + b1[yid[i]]*x[i] + crowding[i] + climate[i];
-    sigma[n] <- sqrt((fmax(tau*exp(tauSize*mu[i]), 0.0000001)));  // don't allow variance to be vanishingly small with fmax
+    mu[i] <- inv_logit(a[yid[i]] + gint[gid[i]] + b1[yid[i]]*x[i] + crowding[i] + climate[i]);
   }
 }
 
@@ -70,7 +69,7 @@ model{
   }
 
   // Likelihood
-  y ~ normal(mu, sigma);                 // vectorized likelihood
+  y ~ binomial(1,mu);                    // vectorized likelihood
 }
 
 generated quantities {
@@ -88,8 +87,7 @@ generated quantities {
   
   // Make predictions and draw log-likelihood
   for(i in 1:npreds){
-    muhat[i] <- int_t + gint[gid_out[i]] + b1_mu*xhold[i] + crowdpred[i] + climpred[i];
-    sigmahat[i] <- sqrt((fmax(tau*exp(tauSize*muhat[i]), 0.0000001))); 
-    log_lik[i] <- normal_log(yhold[i], muhat[i], sigmahat[i]);
+    muhat[i] <- inv_logit(int_t + gint[gid_out[i]] + dens_dep*xhold[i] + climpred[i] + crowdpred[i]);
+    log_lik[i] <- bernoulli_log(yhold[i], muhat[i]);
   }
 }
