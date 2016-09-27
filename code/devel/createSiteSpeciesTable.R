@@ -12,5 +12,5 @@ if(file.exists("../../data/site_species_list.csv")==FALSE)
     site_species_df <- rbind(site_species_df,tmpdf)
   }
   
-  write.csv(site_species_df, file = "../../data/site_species_list.csv")
+  write.csv(site_species_df, file = "../../data/aux_data/site_species_list.csv")
 }
