@@ -10,15 +10,15 @@ data{
   vector[n] y;                  // observation vector (logarea.t1)
   vector[n] x;                  // size vector (logarea.t0)
   matrix[n,ncovars] C;          // climate covariate matrix
-  matrix[n,2] W;                // crowding matrix for species interactions
+  vector[n] W;                // crowding matrix for species interactions
   
   // Heldout data
   int<lower=0> npreds;          // number of predictions to make
   int<lower=0> gid_out[npreds]; // group id holdout
   vector[npreds] yhold;         // prediction observation vector
   vector[npreds] xhold;         // prediction size vector
-  matrix[npreds,Covs] Chold;    // prediction climate covariate matrix
-  matrix[npreds,2] Whold;       // prediction crowding matrix
+  matrix[npreds,ncovars] Chold;    // prediction climate covariate matrix
+  vector[npreds] Whold;       // prediction crowding matrix
 }
 
 parameters{
@@ -27,7 +27,7 @@ parameters{
   real b1_mu;                   // mean size effect
   vector[nyrs] b1;              // random year size effects
   vector[ncovars] b2;           // climate effects
-  vector[2] w;                  // crowding effects
+  real w;                       // crowding effects
   real gint[ngrp];              // quadrat group effects
   real tau;                     // size-based variance parameter 1
   real tauSize;                 // size-based variance parameter 2
@@ -64,9 +64,9 @@ model{
   b2 ~ normal(0, sd_beta);
   for(g in 1:ngrp)
     gint[g] ~ normal(0, sig_g);
-  for(y in 1:nyrs){
-    a[y] ~ normal(a_mu, sig_a);
-    b1[y] ~ normal(b1_mu, sig_b1);
+  for(iyr in 1:nyrs){
+    a[iyr] ~ normal(a_mu, sig_a);
+    b1[iyr] ~ normal(b1_mu, sig_b1);
   }
 
   // Likelihood
@@ -88,7 +88,7 @@ generated quantities {
   
   // Make predictions and draw log-likelihood
   for(i in 1:npreds){
-    muhat[i] <- int_t + gint[gid_out[i]] + b1_mu*xhold[i] + crowdpred[i] + climpred[i];
+    muhat[i] <- int_t + gint[gid_out[i]] + dens_dep*xhold[i] + crowdpred[i] + climpred[i];
     sigmahat[i] <- sqrt((fmax(tau*exp(tauSize*muhat[i]), 0.0000001))); 
     log_lik[i] <- normal_log(yhold[i], muhat[i], sigmahat[i]);
   }

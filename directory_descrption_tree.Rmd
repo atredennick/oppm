@@ -1,0 +1,52 @@
+---
+title: "Directory description and code order of operations"
+author: "Andrew Tredennick, Brittany Teller, Peter Adler"
+date: \today
+output: pdf_document
+header-includes:
+   - \usepackage{forest}
+---
+
+##  Directory tree for ```oppm```
+
+\begin{forest}
+  for tree={
+    font=\ttfamily,
+    grow'=0,
+    child anchor=west,
+    parent anchor=south,
+    anchor=west,
+    calign=first,
+    edge path={
+      \noexpand\path [draw, \forestoption{edge}]
+      (!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+    },
+    before typesetting nodes={
+      if n=1
+        {insert before={[,phantom]}}
+        {}
+    },
+    fit=band,
+    before computing xy={l=15pt},
+  }
+[\large{\textbf{oppm}}
+  [\textbf{code}
+    [data\_manipulation]
+    [devel]
+    [model\_fitting
+      [apriori\_regularization]
+      [flm]
+      [flm\_regularization]
+    ]
+  ]
+  [\textbf{data}
+    [aux\_data]
+    [fitting\_dataframes]
+    [site\_data]
+  ]
+  [\textbf{figures}]
+  [\textbf{ms}
+    [components]
+  ]
+]
+\end{forest}
