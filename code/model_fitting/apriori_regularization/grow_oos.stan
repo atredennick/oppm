@@ -10,15 +10,15 @@ data{
   vector[n] y;                  // observation vector (logarea.t1)
   vector[n] x;                  // size vector (logarea.t0)
   matrix[n,ncovars] C;          // climate covariate matrix
-  vector[n] W;                // crowding matrix for species interactions
+  vector[n] W;                  // crowding matrix for species interactions
   
   // Heldout data
   int<lower=0> npreds;          // number of predictions to make
   int<lower=0> gid_out[npreds]; // group id holdout
   vector[npreds] yhold;         // prediction observation vector
   vector[npreds] xhold;         // prediction size vector
-  matrix[npreds,ncovars] Chold;    // prediction climate covariate matrix
-  vector[npreds] Whold;       // prediction crowding matrix
+  matrix[npreds,ncovars] Chold; // prediction climate covariate matrix
+  vector[npreds] Whold;         // prediction crowding matrix
 }
 
 parameters{
@@ -47,7 +47,7 @@ transformed parameters{
   // Determinstic model
   for(i in 1:n){
     mu[i] <- a[yid[i]] + gint[gid[i]] + b1[yid[i]]*x[i] + crowding[i] + climate[i];
-    sigma[n] <- sqrt((fmax(tau*exp(tauSize*mu[i]), 0.0000001)));  // don't allow variance to be vanishingly small with fmax
+    sigma[i] <- sqrt((fmax(tau*exp(tauSize*mu[i]), 0.0000001)));  // don't allow variance to be vanishingly small with fmax
   }
 }
 

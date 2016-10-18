@@ -20,8 +20,8 @@
 run_on_hpc <- FALSE
 
 # Change state and species four letter code here...
-do_state <- "Arizona"
-do_species <- "BOER"
+do_state <- "Idaho"
+do_species <- "ARTR"
 dataframe_file <- paste0("grow_apriori_climate_", do_state, ".RDS")
 
 
@@ -35,6 +35,9 @@ if(run_on_hpc==TRUE){
   do_grid <- as.numeric(myargument)
 }
 
+if(run_on_hpc==FALSE){
+  do_grid <- 1
+}
 
 
 
@@ -42,11 +45,14 @@ if(run_on_hpc==TRUE){
 ####  Load Libraries and Subroutines
 ####
 library(rstan)
+library(StanHeaders)
 library(plyr)
 library(reshape2)
 library(ggmcmc)
 library(matrixStats)
+
 source("waic_fxns.R")
+source("growth_fxns.R")
 
 
 
@@ -114,7 +120,7 @@ mcmc_oos <- stan(file="grow_oos.stan", data=datalist,
 ####
 n.beta <- 24
 sd_vec <- seq(0.1,1.5,length.out = n.beta)
-yrs.vec <- unique(growD$year)
+yrs.vec <- unique(grow_data$year)
 K <- length(yrs.vec)
 cv.s2.grid <- expand.grid(1:n.beta,1:K)
 n.grid <- dim(cv.s2.grid)[1]
@@ -125,7 +131,8 @@ fold.idx.mat <- matrix(1:length(yrs.vec),ncol=K)
 ####
 ####  Source Growth Model Function and Fit Model
 ####
-source("growth_fxns.R")
-out_lpd <- cv.fcn(do_grid)
-saveRDS(out_lpd, paste0(do_species,"_oos_cv_dogrid_",do_grid,".RDS"))
+if(run_on_hpc==TRUE) num_chains <- 3
+if(run_on_hpc==FALSE) num_chains <- 1
+out_lpd <- cv_oos(do_grid, n_chains = num_chains)
+saveRDS(out_lpd, paste0(do_state, "_", do_species,"_oos_cv_dogrid_",do_grid,".RDS"))
 
