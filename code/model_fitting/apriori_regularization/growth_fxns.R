@@ -65,17 +65,17 @@ cv_oos <- function(i, n_chains){
   inits[[1]] <- list(a_mu=0, a=rep(0,nyrs), b1_mu=0.01,
                      b1=rep(0.01,nyrs), gint=rep(0,G), 
                      w=0, sig_b1=0.5, sig_a=0.5, 
-                     tau=0.5, tauSize=0.5, sig_G=0.5, 
+                     tau=0.5, tauSize=0.5, sig_g=0.5, 
                      b2=rep(0,ncol(climate_matrix)))
   inits[[2]] <- list(a_mu=0.5, a=rep(0.5,nyrs), b1_mu=0.1,
                      b1=rep(0.1,nyrs), gint=rep(0.4,G), 
                      w=0.1, sig_b1=0.2, sig_a=0.2, 
-                     tau=0.2, tauSize=0.2, sig_G=0.2, 
+                     tau=0.2, tauSize=0.2, sig_g=0.2, 
                      b2=rep(0.5,ncol(climate_matrix)))
   inits[[3]] <- list(a_mu=1, a=rep(1,nyrs), b1_mu=0.2,
                      b1=rep(0.2,nyrs), gint=rep(0.2,G), 
                      w=0.5, sig_b1=0.01, sig_a=0.01, 
-                     tau=0.05, tauSize=0.05, sig_G=0.05, 
+                     tau=0.05, tauSize=0.05, sig_g=0.05, 
                      b2=rep(-0.5,ncol(climate_matrix)))
   if(n_chains > 1) {
     fit <- stan(fit = mcmc_oos, data=datalist, init=inits,
